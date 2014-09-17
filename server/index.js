@@ -16,7 +16,6 @@ app.set('port',process.env.PORT || 4000);
 app.use(express.static(__dirname + './../public'));
 
 
-
 io.on('connection', function(socket){
 	  	 game.init(io,socket);  
 });
