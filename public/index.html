@@ -8,11 +8,18 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 	<meta name="keywords" content="Multiplayer,Node,express,socket,game,fun,learning">
 	<title>tic-tac-toe game</title>
+	 <link rel="stylesheet" href="css/main.css" />
 	<style></style>
 </head>
 
 <body>
-	<canvas id="board" width="500" height="500">
+
+<div id="loadingScreen" class="loading-screen hide"> 
+<div class="app-spinner"></div><div class="loading-message">Loading...</div>
+</div>
+
+
+	<canvas class="" id="board" width="500" height="500">
 		<p>This game is not supported in your browser!</p>
 	</canvas>
  <script src="js/main.js"></script>

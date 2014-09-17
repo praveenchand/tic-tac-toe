@@ -30,7 +30,10 @@ ul {
   list-style: none;
   word-wrap: break-word;
 }
-
+.hide{
+	
+	display:none;
+}
 /* Pages */
 
 .pages {
@@ -147,4 +150,53 @@ ul {
   position: absolute;
   right: 0;
   width: 100%;
+}
+
+.loading-screen{
+	background-color:#4278CB;
+overflow: hidden;
+height: 100%;
+width: 100%;
+margin: 0;
+padding: 0;
+opacity: 1;
+z-index: 100;
+position: absolute;
+-webkit-touch-callout: none;
+-webkit-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+user-select: none;
+}
+.app-spinner{
+	
+
+position: relative;
+margin: 30vh auto 1vh;
+width: 13vh;
+color: #FFF;
+font-weight: 400;
+height: 13vh;
+font-size: 5vh;
+font-family: inherit;
+text-align: center;
+background-repeat: no-repeat;
+background-image: url(../assets/images/app-icon.png);
+-webkit-background-size: 90% auto;
+-moz-background-size: 90% auto;
+background-size: 90% auto;
+background-position: 50% 50%;
+}
+.loading-message{
+position: relative;
+margin: 4vh auto 0;
+width: 56%;
+color: #FFF;
+font-weight: 400;
+/* height: 41%; */
+font-size: 5vh;
+font-family: cursive;
+text-align: center;
+font-weight: 800;
+
 }
