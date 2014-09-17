@@ -8,27 +8,22 @@ var http = require('http').Server(app);
 
 var io = require('socket.io')(http);
 
-app.set('port',process.env.PORT || 3000);
+var game = require('./game');
+
+app.set('port',process.env.PORT || 4000);
 
 
 app.use(express.static(__dirname + './../public'));
 
-console.log(path.join(__dirname,'../public'));
-
-/*app.get('/', function(req, res){
-  res.sendFile('public/index.html', { root: 'C:/xampp/htdocs/tic-tac-toe' });
-});*/
-
-
 
 
 io.on('connection', function(socket){
-	  socket.on('chat message', function(msg){
-	    io.emit('chat message', msg);
-	  });
+	  	 game.init(io,socket);  
 });
+
 
 
 http.listen(app.get('port'), function(){
   console.log('listening on *:3000');
 });
+

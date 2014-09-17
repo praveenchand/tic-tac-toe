@@ -6,6 +6,7 @@ var rooms  = new Array();
 var userCount = 0;
 var io;
 
+
 exports.init = function(sio,socket){
 	io = sio;
 	var currentID = ++userCount,gameID = rooms[currentID/2-1];
