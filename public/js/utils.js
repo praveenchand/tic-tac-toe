@@ -43,7 +43,7 @@ utils.captureTouch = function(element){
 	element.addEventListener('touchend',function(event){
 		touch.isPressed = false;
 		touch.x = null;
-		touhc.y = null;
+		touch.y = null;
 	},false);
 	
 	element.addEventListener('touchmove',function(event){
