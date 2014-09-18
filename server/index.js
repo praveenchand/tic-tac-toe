@@ -10,7 +10,7 @@ var io = require('socket.io')(http);
 
 var game = require('./game');
 
-app.set('port',process.env.PORT || 4000);
+app.set('port',process.env.PORT || 2000);
 
 
 app.use(express.static(__dirname + './../public'));

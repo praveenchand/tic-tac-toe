@@ -4,14 +4,15 @@ var board = {};
 var user ={};
 var canvas,context,down;
 var grid   = [null,0,0,0,0,0,0,0,0,0];
-var isTurn = true;
+var isTurn = false;
 var prevX=0,prevY=0,currX=0,currY=0;
 
 var symbol;
 
 var events = [['mousedown','mousemove','mouseup'],['touchstart','touchmove','touchend']];
 var index;
-
+var count=0;
+var moved;
 
 var socket = io();
 
@@ -40,12 +41,10 @@ board.init = function init(){
 };
 
 board.detect = function detect(){
-	
-	var that  = this;
-
-		
+	var that  = this;		
 	canvas.addEventListener(events[index][1],function(e){
 		if(isTurn && down){
+			moved = true;
 		    prevX = currX;
 		    prevY = currY;
 		    currX = that.pointer.x;
@@ -56,6 +55,8 @@ board.detect = function detect(){
 	
 	canvas.addEventListener(events[index][0],function(e){
 		down = true;
+		console.log('down');
+		count++;
 		if(event.touches)
 	 	e = event.touches[0];
 		_updatePointer(e);
@@ -63,6 +64,18 @@ board.detect = function detect(){
 	
 	canvas.addEventListener(events[index][2],function(e){
 		down = false;
+		if(symbol == "O" && count == 1 && moved){
+			   count--;
+			   moved = false;
+			   socket.emit('game:changeTurn',user);
+		}else if(symbol == "X" && count == 2 && moved){
+			count =0;
+			moved = false;
+			socket.emit('game:changeTurn',user);
+		}else if(!moved){
+			count --;
+			moved = false;
+		}
 	});
 	
 };
@@ -77,7 +90,8 @@ function _updatePointer(e){
 board.findGrid  = function findGrid(pointer){
 	var row = parseInt(pointer.y/(this.dimensions['height']/3)),
 	    column = parseInt(pointer.x/(this.dimensions['width']/3)),
-	    ID = row*3+column+1;	
+	    ID = row*3+column+1;
+	user.ID = ID;
 	 if(grid[ID]==0){
 		 this.drawTicTac(ID);
 	 }
@@ -133,6 +147,25 @@ socket.on('drawing',function(data){
      	context.stroke();
      	context.closePath();
 	    context.restore();
+});
+
+socket.on('game:turnStart',function(){
+	isTurn = true;
+});
+
+
+socket.on('game:turnEnd',function(){
+	isTurn = false;
+});
+
+socket.on('game:restart',function(){
+	location.reload();
+})
+
+
+socket.on('game:symbol',function(msg){
+	symbol = msg;
+	console.log(symbol);
 });
 
 
